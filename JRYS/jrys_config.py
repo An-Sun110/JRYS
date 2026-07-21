@@ -20,17 +20,17 @@ CONFIG_DEFAULT: Dict[str, GSC] = {
     ),
     "original_image_command": GsStrConfig(
         title="原图指令",
-        desc="通过令牌获取本次运势使用的背景图",
+        desc="回复运势图片或获取本人最近一次运势使用的背景图",
         data="查看运势背景图",
     ),
     "enable_original_image": GsBoolConfig(
         title="启用原图功能",
-        desc="为每张运势图生成原图令牌",
+        desc="记录每张运势图对应的背景",
         data=True,
     ),
     "auto_clean_original_image": GsBoolConfig(
-        title="获取后清理令牌",
-        desc="成功获取背景图后删除对应的令牌记录",
+        title="获取后清理记录",
+        desc="成功获取背景图后删除对应的背景记录",
         data=True,
     ),
     "render_hint": GsStrConfig(

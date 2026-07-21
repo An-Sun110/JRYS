@@ -85,7 +85,12 @@ async def cmd_jrys(bot: Bot, ev: Event) -> None:
     background = await get_background()
     token: str | None = None
     if JRYS_CONFIG.get_config("enable_original_image").data:
-        token = await create_original_record(background.source)
+        token = await create_original_record(
+            background.source,
+            ev.bot_id,
+            ev.group_id or "",
+            ev.user_id,
+        )
 
     if _is_split_mode(ev.text):
         original_image = await convert_img(background.image)
@@ -125,17 +130,19 @@ async def cmd_original_image(bot: Bot, ev: Event) -> None:
         await bot.send("原图功能当前未启用。")
         return
     identifier = ev.text.strip()
+    has_reply = ev.reply is not None
     if not identifier and ev.reply is not None:
         identifier = ev.reply
-    if not identifier:
-        await bot.send("请回复一张运势图，或输入原图令牌。")
-        return
     source = await find_original_source(
         identifier,
         remove=JRYS_CONFIG.get_config("auto_clean_original_image").data,
+        bot_id=ev.bot_id,
+        group_id=ev.group_id or "",
+        user_id=ev.user_id,
+        allow_scope_fallback=has_reply or not identifier,
     )
     if source is None:
-        await bot.send("没有找到对应背景，令牌可能已使用或已失效。")
+        await bot.send("没有找到你最近一次运势使用的背景图。")
         return
     background = await load_background(source)
     if background is None:

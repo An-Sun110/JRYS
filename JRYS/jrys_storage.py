@@ -13,6 +13,9 @@ class OriginalImageRecord(TypedDict):
     token: str
     source: str
     message_ids: list[str]
+    bot_id: str
+    group_id: str
+    user_id: str
     created_at: int
 
 
@@ -38,6 +41,9 @@ async def _read_records() -> list[OriginalImageRecord]:
                 token=str(item["token"]),
                 source=str(item["source"]),
                 message_ids=[str(message_id) for message_id in message_ids_raw],
+                bot_id=str(item["bot_id"]) if "bot_id" in item else "",
+                group_id=(str(item["group_id"]) if "group_id" in item else ""),
+                user_id=str(item["user_id"]) if "user_id" in item else "",
                 created_at=int(item["created_at"]),
             )
         )
@@ -50,7 +56,12 @@ async def _write_records(records: list[OriginalImageRecord]) -> None:
         await file.write(json.dumps(records, ensure_ascii=False, indent=2))
 
 
-async def create_original_record(source: str) -> str:
+async def create_original_record(
+    source: str,
+    bot_id: str,
+    group_id: str,
+    user_id: str,
+) -> str:
     async with _record_lock:
         records = await _read_records()
         token = secrets.token_hex(4)
@@ -59,6 +70,9 @@ async def create_original_record(source: str) -> str:
                 token=token,
                 source=source,
                 message_ids=[],
+                bot_id=bot_id,
+                group_id=group_id,
+                user_id=user_id,
                 created_at=int(time.time()),
             )
         )
@@ -81,6 +95,10 @@ async def attach_message_ids(token: str, message_ids: list[str] | None) -> None:
 async def find_original_source(
     identifier: str,
     remove: bool,
+    bot_id: str,
+    group_id: str,
+    user_id: str,
+    allow_scope_fallback: bool,
 ) -> str | None:
     async with _record_lock:
         records = await _read_records()
@@ -92,6 +110,16 @@ async def find_original_source(
             ):
                 matched_index = index
                 break
+        if matched_index is None and allow_scope_fallback:
+            for index in range(len(records) - 1, -1, -1):
+                record = records[index]
+                if (
+                    record["bot_id"] == bot_id
+                    and record["group_id"] == group_id
+                    and record["user_id"] == user_id
+                ):
+                    matched_index = index
+                    break
         if matched_index is None:
             return None
         source = records[matched_index]["source"]
