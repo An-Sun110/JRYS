@@ -5,7 +5,8 @@ import secrets
 from typing import TypedDict
 
 import aiofiles
-from jrys_paths import RECORD_PATH
+
+from JRYS.jrys_paths import RECORD_PATH
 
 
 class OriginalImageRecord(TypedDict):

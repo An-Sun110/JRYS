@@ -1,7 +1,5 @@
-"""GsCore port of koishi-plugin-jrys-prpr."""
-
 import sys
-from pathlib import Path
+from importlib import import_module
 
 from gsuid_core.sv import Plugins
 
@@ -12,8 +10,8 @@ Plugins(
     alias=["jrys-prpr"],
 )
 
-_module_path = str(Path(__file__).parent)
-if _module_path not in sys.path:
-    sys.path.insert(0, _module_path)
-
-import jrys  # noqa: E402,F401
+# GsCore loads nested plugins with a synthetic module name whose parent
+# packages may not exist. Register the real package alias before importing
+# business modules so sibling imports remain isolated from other plugins.
+sys.modules["JRYS"] = sys.modules[__name__]
+import_module("JRYS.jrys")

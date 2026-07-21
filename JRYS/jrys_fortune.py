@@ -5,9 +5,10 @@ from typing import Dict, List
 from datetime import date
 
 import aiofiles
-from jrys_paths import FORTUNE_PATH
-from jrys_types import FortuneEntry, FortuneResult
-from jrys_config import JRYS_CONFIG
+
+from JRYS.jrys_paths import FORTUNE_PATH
+from JRYS.jrys_types import FortuneEntry, FortuneResult
+from JRYS.jrys_config import JRYS_CONFIG
 
 _fortune_cache: Dict[int, List[FortuneEntry]] | None = None
 _fortune_lock = asyncio.Lock()

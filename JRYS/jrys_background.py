@@ -6,10 +6,10 @@ from urllib.parse import urlparse
 import httpx
 import aiofiles
 from PIL import Image
-from jrys_paths import BACKGROUND_PATH, DEFAULT_BACKGROUND_PATH
-from jrys_types import BackgroundAsset
-from jrys_config import JRYS_CONFIG
 
+from JRYS.jrys_paths import BACKGROUND_PATH, DEFAULT_BACKGROUND_PATH
+from JRYS.jrys_types import BackgroundAsset
+from JRYS.jrys_config import JRYS_CONFIG
 from gsuid_core.logger import logger
 
 _IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}

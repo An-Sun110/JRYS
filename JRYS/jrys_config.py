@@ -1,7 +1,6 @@
 from typing import Dict
 
-from jrys_paths import BACKGROUND_PATH, DEFAULT_BACKGROUND_PATH
-
+from JRYS.jrys_paths import BACKGROUND_PATH, DEFAULT_BACKGROUND_PATH
 from gsuid_core.data_store import get_res_path
 from gsuid_core.utils.plugins_config.models import (
     GSC,

@@ -1,19 +1,18 @@
 from datetime import datetime
 
-from jrys_config import JRYS_CONFIG
-from jrys_fortune import get_fortune, fortune_text
-from jrys_storage import (
+from gsuid_core.sv import SV
+from gsuid_core.bot import Bot
+from JRYS.jrys_config import JRYS_CONFIG
+from gsuid_core.models import Event
+from JRYS.jrys_fortune import get_fortune, fortune_text
+from JRYS.jrys_storage import (
     attach_message_ids,
     find_original_source,
     create_original_record,
 )
-from jrys_renderer import render_fortune_card
-from jrys_background import get_background, load_background
-
-from gsuid_core.sv import SV
-from gsuid_core.bot import Bot
-from gsuid_core.models import Event
 from gsuid_core.segment import MessageSegment
+from JRYS.jrys_renderer import render_fortune_card
+from JRYS.jrys_background import get_background, load_background
 from gsuid_core.message_models import Button
 from gsuid_core.utils.image.convert import convert_img
 from gsuid_core.utils.image.image_tools import get_event_avatar

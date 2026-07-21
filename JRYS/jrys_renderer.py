@@ -2,11 +2,11 @@ import re
 from io import BytesIO
 
 from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageFilter
-from jrys_paths import FONT_PATH
-from jrys_types import FortuneResult
-from jrys_config import JRYS_CONFIG
 
 from gsuid_core.pool import to_thread
+from JRYS.jrys_paths import FONT_PATH
+from JRYS.jrys_types import FortuneResult
+from JRYS.jrys_config import JRYS_CONFIG
 
 _WIDTH = 1080
 _HEIGHT = 1920
