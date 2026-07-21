@@ -3,6 +3,28 @@
 Koishi 插件 `jrys-prpr` 的 GsCore 移植版，使用同源运势数据、字体和默认背景，
 通过 PIL 生成 `1080 x 1920` 运势卡片。
 
+## 安装
+
+在 `gsuid_core/plugins` 目录中克隆仓库：
+
+```bash
+git clone https://github.com/An-Sun110/JRYS.git
+```
+
+最终目录必须保持为：
+
+```text
+gsuid_core/plugins/JRYS/
+├── __init__.py
+├── __nest__.py
+└── JRYS/
+    ├── __init__.py
+    └── __full__.py
+```
+
+GsCore 的嵌套插件加载要求外层目录和内层包同名，因此不要将目录改为
+`gsuid-core-jrys`、`JRYS-main` 或其他名称。
+
 ## 命令
 
 | 命令 | 说明 |
