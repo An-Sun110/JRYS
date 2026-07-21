@@ -133,13 +133,16 @@ async def cmd_original_image(bot: Bot, ev: Event) -> None:
     has_reply = ev.reply is not None
     if not identifier and ev.reply is not None:
         identifier = ev.reply
+    if not identifier:
+        await bot.send("请引用一张运势图片后发送“原图”。")
+        return
     source = await find_original_source(
         identifier,
         remove=JRYS_CONFIG.get_config("auto_clean_original_image").data,
         bot_id=ev.bot_id,
         group_id=ev.group_id or "",
         user_id=ev.user_id,
-        allow_scope_fallback=has_reply or not identifier,
+        allow_scope_fallback=has_reply,
     )
     if source is None:
         await bot.send("没有找到你最近一次运势使用的背景图。")
