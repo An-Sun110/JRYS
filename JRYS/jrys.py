@@ -134,7 +134,6 @@ async def cmd_original_image(bot: Bot, ev: Event) -> None:
     if not identifier and ev.reply is not None:
         identifier = ev.reply
     if not identifier:
-        await bot.send("请引用一张运势图片后发送“原图”。")
         return
     source = await find_original_source(
         identifier,
