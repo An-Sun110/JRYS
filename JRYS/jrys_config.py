@@ -43,12 +43,6 @@ CONFIG_DEFAULT: Dict[str, GSC] = {
         desc="运势图片发送成功后撤回渲染提示语",
         data=True,
     ),
-    "original_image_hint_mode": GsStrConfig(
-        title="原图提示方式",
-        desc="图片后附带原图令牌的方式",
-        data="combined",
-        options=["off", "combined", "separate"],
-    ),
     "background_sources": GsListStrConfig(
         title="背景图片来源",
         desc="支持图片文件、目录、txt 文件或网络 URL；留空时使用内置背景",

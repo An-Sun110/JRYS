@@ -13,7 +13,6 @@ from JRYS.jrys_storage import (
 from gsuid_core.segment import MessageSegment
 from JRYS.jrys_renderer import render_fortune_card
 from JRYS.jrys_background import get_background, load_background
-from gsuid_core.message_models import Button
 from gsuid_core.utils.image.convert import convert_img
 from gsuid_core.utils.image.image_tools import get_event_avatar
 
@@ -44,25 +43,6 @@ def _original_command_aliases() -> tuple[str, ...]:
 
 def _is_split_mode(text: str) -> bool:
     return text.strip().lower() in {"-s", "--split", "split", "图文"}
-
-
-async def _send_controls(bot: Bot, token: str) -> None:
-    mode = JRYS_CONFIG.get_config("original_image_hint_mode").data
-    if mode == "off":
-        return
-    original_command = JRYS_CONFIG.get_config("original_image_command").data
-    original_text = f"{original_command} {token}"
-    if mode == "separate":
-        await bot.send(f"获取本次背景原图：{original_text}")
-        return
-    await bot.send_option(
-        reply=f"原图令牌：{token}",
-        option_list=[
-            Button("再来一张", "jrysprpr", "正在重新抽取"),
-            Button("查看原图", original_text, "正在获取原图"),
-        ],
-        unsuported_platform=True,
-    )
 
 
 @sv_jrys.on_command(
@@ -112,7 +92,6 @@ async def cmd_jrys(bot: Bot, ev: Event) -> None:
 
     if token is not None:
         await attach_message_ids(token, message_ids)
-        await _send_controls(bot, token)
     if hint_ids is not None and JRYS_CONFIG.get_config(
         "recall_render_hint"
     ).data:
