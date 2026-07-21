@@ -18,7 +18,7 @@ from gsuid_core.message_models import Button
 from gsuid_core.utils.image.convert import convert_img
 from gsuid_core.utils.image.image_tools import get_event_avatar
 
-sv_jrys = SV("今日运势", priority=5000)
+sv_jrys = SV("JRYS今日运势", priority=5000)
 
 
 def _nickname(ev: Event) -> str:
