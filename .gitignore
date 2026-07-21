@@ -1,0 +1,53 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test/cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Image cache
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+!JRYS/assets/**/*.jpg
+!JRYS/assets/**/*.jpeg
+!JRYS/assets/**/*.png
+!JRYS/assets/**/*.gif
+!JRYS/assets/**/*.webp
+
+# Legacy files from the pre-port implementation
+/font/
+/jrys_utils/
+/jrys_data.json
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
